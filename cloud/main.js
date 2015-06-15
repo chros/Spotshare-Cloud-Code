@@ -58,19 +58,26 @@ Parse.Cloud.beforeSave("Vote", function(request, response) {
 });
 
 Parse.Cloud.afterSave("Vote", function(request, response) {
+  //chiedo di usare la MasterKey per ottenere i permessi
+  //di lettura e scrittura
   Parse.Cloud.useMasterKey();
+  //prendo lo spot a cui si riferisce il voto appena salvato
   var spot = request.object.get("referredTo");
+  //ho bisogno di fare il fetch per caricarlo
   spot.fetch({
    success: function(spot) {
+     //cerco tutti i voti che si riferiscono a questo spot
      var Vote = Parse.Object.extend("Vote");
      var query = new Parse.Query(Vote);
      query.equalTo("referredTo", spot);
      query.find({
       success: function(votes) {
+        //e calcolo la media
         var totale = 0.0;
         votes.forEach(function(vote) {
           totale += vote.get("value");
         });
+        //a questo punto, salvo la valutazione media in voteAverage
         spot.set("voteAverage", totale / votes.length);
         spot.save();
       }
