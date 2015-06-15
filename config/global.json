@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "Spotshare": {
+      "applicationId": "l9piAfhgLNIPrizyWjbvRQXurgWN0qhmh0Jm3Q3t",
+      "masterKey": "PtzCvYpp4r8gcImrz3qxFS4X8US7OfPSolj0gbWB"
+    },
+    "_default": {
+      "link": "Spotshare"
+    }
+  }
+}
